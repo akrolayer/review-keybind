@@ -13,18 +13,18 @@ Complex Modificationsでは、主要エディタのショートカットキー�
 キーバインド設定をするなら、自分に合った独自のキーバインド設定をしたいですよね。Karabiner-Elementsでも独自キーバインド設定ができます。キーバインド設定は、~/.config/karabiner/assets/complex_modificationsに保存されます。インポートした設定は数列.jsonというファイル名で保存されます。このディレクトリのjsonファイルを読み込んでいるため、自分でjsonファイルを作成すると読み込まれます。設定ファイル名は英数字内で自由なのですが、ごくたまに読み込まれないことがあります。その際はファイル名を数列.jsonとしてください。jsonファイルが分からなくても、Karabiner-Elementsにおいては簡単な書式なので真似すれば問題ないです。
 === [column]jsonファイルとは
 JSONとはJavaScript Object Notationの略で、テキストベースのデータフォーマットです。主要なプログラミング言語にはjsonの生成や読み込みを行うライブラリが存在しているため、データ交換のためのデータフォーマットとして利用されます。書式は
-```
+//emlist[ex1]{
 {
   "key":"value",
   "key2":"value2",
   "key3":[true, 123, "value3"]
 }
-```
+//}
 まず、全体を｛｝で囲む必要があります。キーと値を：で区切って並べて書きます。複数にわたる場合は, で区切って並べます。値は、文字列は""で囲み、数値とbool値はそのまま、配列は[]で囲み要素を, で区切ります。見やすいように改行することが多いですが、すべてを1行で書いてもいいです。
 ===
 
 それでは、jsonファイルの中身を見ていきましょう。
-```
+//emlist[rule]{
 {
   "title": "Add rulesに表示させる",
   "rules": [
@@ -33,20 +33,20 @@ JSONとはJavaScript Object Notationの略で、テキストベースのデー�
     }
   ]
 }
-```
+//}
 まず、Karabiner-ElementsのRule追加画面に表示させる設定です。titleに設定した文字列が表示され、その中にdescriptionが各項目の設定として表示されています。（画像入れる）
 
 設定ファイルを編集後、変更を反映させるには「Complex Modifications」で対象のルールをEnableして、Add rulesで再度ルールを適用してください。
 
 コメントは、キーを増やしても問題ないので"comment"のキーを作成する方法があります。
-```
+//emlist[コメントの付け方]{
 "description": "descriptionを表示させる",
 "comment": "このキーを増やしてここにコメントを書いてもよい"
-```
+//}
 
 rulesは配列になっているので、１つのrulesの中に複数のdescription以下の設定を記述できます。titleの中に複数の設定が表示されていましたよね。
 また、１つのdescriptionの中に複数の設定をすることもできます。
-```
+//emlist[karabiner-Elementsの設定ツリー]{
 "title"
 "rules"
   "description"
@@ -57,12 +57,12 @@ rulesは配列になっているので、１つのrulesの中に複数のdescrip
     "type"      //2つ目の設定
     "from"
     "to"
-```
+//}
 
 実際にキーバインド設定の記述に入ります。基本としては、fromで設定したキー入力を受け付けたら、toで設定したキー入力に変更するというものです。
 設定全体の注意点として、fromに設定した入力は、通常の動作をせずここで設定した入力をすることに注意してください。ちなみに、toになにも設定しないと何もしないのでfromに設定したキーを無効化します。また、単純にfrom、toに1つのキーを設定した場合は、キーマップの変更になります。
 typeには、基本的には"basic"を指定します。マウスの動きをスクロールに変換したい場合のみ"mouse_motion_to_scroll"を指定します。この機能を使う場合は、Karabiner-ElementsのDevicesで、自分が使っているマウスにチェックを入れておく必要があります。
-```
+//emlist[マウススクロール]{
 {
   "description": "Change control + mouse motion to scroll wheel (rev 1)",
   "available_since": "12.3.0",
@@ -79,10 +79,10 @@ typeには、基本的には"basic"を指定します。マウスの動きをス
     }
   ]
 }
-```
+//}
 Controlキーを押しながらマウスを動かすと、動かした方向にスクロールするようになります。
-ここからの説明では、"title"/"rules"/"description"/"manipulators"/"type"の部分、直接関係ない部分は省略してサンプルを載せていきます。
-```
+ここからの説明では、"title"/"rules"/"description"/"manipulators"/"type"の部分、直接関係ない部分は省略してサンプルを載せていきます。ここからの設定は、全てtypeは"basic"です。
+//emlist[十字キー]{
 "type":"basic"
 "from":{
   "key_code":"j"
@@ -92,14 +92,14 @@ Controlキーを押しながらマウスを動かすと、動かした方向に�
 "to":[
   {"key_code":"left_arrow"}
  ]
-```
+//}
 上記のコードは、control-jの組み合わせを指定しています。例の"controll"部分にanyを指定すると、全てのキー入力を指定します。キー入力ではなく、マウスのボタンを指定する時はkey_codeではなく、"pointing_button":"button3"のように指定してください。modifiersはキーの組み合わせを指定します。ここでは、mandatoryとoptionalがあります。
 
 mandatoryはキーの組み合わせを指定します。この組み合わせが入力されたときに"to"の処理を行います。mandatoryには、修飾キーのcommand, control, shift, option, fn, caps_lock, anyのどれかを設定することをお勧めします。これら以外だと、mandatoryに指定したキーを押しながらkey_codeに指定したキーを押した場合のみ動作するので、mandatoryに指定したキーの入力が少なくとも1回入ってしまいます。"pointing_button"の注意点として、button1は左クリックですので、ここに割り当てると左クリックとして使えなくなります。modifiersを使って同時押しに使いましょう。
 
 "optional"は、"from"の時に受け付けたキーを、"to"の時にも引き継ぐキーを指定します。"any"だと、全てのキー入力を引き継ぎます。ちなみに、Shift、controlなど左右に存在しているキーは、left_controlのようにすると左右区別できます。left、rightを書いていない場合は、どちらでも受け付けます。
 
-```
+//emlist[any]{
 "from":{
   "key_code":"j"
   "modifiers":{
@@ -109,11 +109,11 @@ mandatoryはキーの組み合わせを指定します。この組み合わせ�
 "to":[
   {"key_code":"command"}
  ]
-```
+//}
 control-Aのキー入力を受け付けると、command-Aにするといったものです。anyの部分には、一つのキーを指定することができます。"caps_lock"を指定すると、CapsLockがON状態でも変換を実行するようになります。Karabiner-Elementsは、CapsLockがONだと、CapsLockが押されていると判断しています。注意点として、"mandatory"と"optional"に同じキーを指定すると引き継ぎできなくなります。
 
 "simultaneous"は、複数キーの同時押しに何らかの処理を割り当てたいときに使います。同時押しの許容時間は、Complex Modifications/Parameters/simultaneous_threshold_millisecondsで設定できます。デフォルトでは、50ミリ秒になっています。
-```
+//emlist[同時押し]{
 {
   "manipulators": [
     {
@@ -131,9 +131,9 @@ control-Aのキー入力を受け付けると、command-Aにするといった�
     }
   ]
 }
-```
+//}
 jklの同時押しでテキストエディタを起動します。simultaneousの下に、オプションを書けます。
-```
+//emlist[simultaneousのオプション]{
 "simultaneous_options":{
   "detect_key_down_uninterruptedly",
   "key_down_order",
@@ -141,7 +141,7 @@ jklの同時押しでテキストエディタを起動します。simultaneous�
   "key_up_when",
   "to_after_key_up"
 }
-```
+//}
 この５つがあります。
 * "detect_key_down_uninterruptedly"
 trueかfalseで指定します。trueだと、同時押しの途中に違うキーを押しても、同時押しに設定された操作の変換を行った後、違うキーを押します。上の例だと、jkslと押した場合、jklを押した動作をした後、sが入力されます。
@@ -153,7 +153,7 @@ trueかfalseで指定します。trueだと、同時押しの途中に違うキ�
 "all"か"any"を指定します。同時押しした全てのキーを離したことにするタイミングを設定します。"all"だとすべて離したとき、"any"だとどれか一つを離した時点で記述した全てのキーを離したことにします。
 * "to_after_key_up"
 同時押ししたキーを離した時点で処理を行いたい場合に設定します。例えば、フラグ処理に使えます。
-```
+//emlist[set_variable]{
 "simultaneous_options": {
   "to_after_key_up": [
     { "set_variable": { "name": "hogehoge", "value": 0 } }
@@ -162,25 +162,25 @@ trueかfalseで指定します。trueだと、同時押しの途中に違うキ�
   "to": [
     { "set_variable": { "name": "hogehoge", "value": 1 } }
   ]
-```
+//}
 "set_variable"で代入ができます。このようにすれば、押したときに"value"を１、離したときに０にできます。
 
 === to
 "to"についてですが、キーの指定方法に関しては"from"と同様です。配列なので、複数の処理を設定できます。
-```
+//emlist[toの例]{
 "to":[
   {"key_code":"control"}
   {"key_code":"japanese_eisuu"}
   {"key_code":"control"}
 ]
-```
+//}
 これで、fromの設定が発火したらcontrolを2回とjapanese_eisuuを押すことができます。"pointing_button"もあります。
-```
+//emlist[ダブルクリック]{
 "to": [
   { "pointing_button": "button1" },
   { "pointing_button": "button1" }
 ]
-```
+//}
 button1は左クリックなので、キー操作にダブルクリックを割り当てることができます。
 ```
 "to": [
