@@ -2,7 +2,7 @@ PREDEF:
   - preface.re
 
 CHAPS:
-  - chap-first.re
+  - chap-AutohotKey.re
   - chap-karabiner.re
 
 APPENDIX:
