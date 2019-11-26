@@ -1,6 +1,6 @@
 = Karabiner（-Elements)
 == Karabiner（-Elements)とは
-Karabiner-Elementsとは、Sierra以降のmacOSのキーボードをカスタマイズするためのツールです。Sierraからキーボードドライバの構成が変更されたため、Karabiner-Elementsとなり、それより前はKarabinerという名前で開発されていました。既存で用意されている設定に、主要エディタのショートカットキーがあり（Vim, emacs, vscode）、とても簡単に設定できます。キーの組み合わせで他のキー入力や、マウス操作、キーバインド設定が独自で定義できます。この本では、Karabiner-Elementsを扱います。設定のインポート方法、独自設定の設定方法を紹介します。現在でも開発が進められており、新機能が追加されていますので、現時点での設定です。
+Karabiner-Elementsとは、Sierra以降のmacOSのキーボードをカスタマイズするためのツールです。Sierraからキーボードドライバの構成が変更されたため、Karabiner-Elementsが開発されました。それより前はKarabinerが開発されていました。既存で用意されている設定に、主要エディタのショートカットキーがあり（Vim, emacs, vscode）、とても簡単に設定できます。キーの組み合わせで他のキー入力や、マウス操作、キーバインド設定が独自で定義できます。この本では、Karabiner-Elementsを扱います。設定のインポート方法、独自設定の設定方法を紹介します。
 
 == 実際にキーバインド設定してみよう
 まず、公式サイト（https://pqrs.org/osx/karabiner/）からインストールします。設定は変更せずインストール完了まで進めてください。Karabiner-Elementsの設定は~/.config/karabiner/karabiner.jsonに保存されます。Karabiner-Elementsを起動すると、このような画面が出ます。（画像入れる）
