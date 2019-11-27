@@ -1,10 +1,10 @@
-= Karabiner（-Elements)
-== Karabiner（-Elements)とは
+= Karabiner-Elements
+== Karabiner-Elementsとは
 Karabiner-Elementsとは、Sierra以降のmacOSのキーボードをカスタマイズするためのツールです。Sierraからキーボードドライバの構成が変更されたため、Karabiner-Elementsが開発されました。それより前はKarabinerが開発されていました。既存で用意されている設定に、主要エディタのショートカットキーがあり（Vim, emacs, vscode）、とても簡単に設定できます。キーの組み合わせで他のキー入力や、マウス操作、キーバインド設定が独自で定義できます。この本では、Karabiner-Elementsを扱います。設定のインポート方法、独自設定の設定方法を紹介します。
 
 == 実際にキーバインド設定してみよう
 まず、公式サイト（https://pqrs.org/osx/karabiner/）からインストールします。設定は変更せずインストール完了まで進めてください。Karabiner-Elementsの設定は~/.config/karabiner/karabiner.jsonに保存されます。Karabiner-Elementsを起動すると、このような画面が出ます。（画像入れる）
-Simple Modificationsでは、From keyの入力をTo keyの入力に変換できます。Add itemをクリックして、新たなルールを設定してください。消したい場合は、右側のRemoveをクリックしてください。Target Deviceでは、
+Simple Modificationsでは、From keyの入力をTo keyの入力に変換できます。Add itemをクリックして、新たなルールを設定してください。消したい場合は、右側のRemoveをクリックしてください。
 
 === 既存設定のインポート
 Complex Modificationsでは、主要エディタのショートカットキー設定（emacs、vim、vscodeなど）が既存で設定されています。独自設定を追加する場合は複数キーの組み合わせを扱うことができ、押しっぱなしといった複雑なルールも扱うことができます。Add ruleをクリックして、Import more rules from the internet(open a web browser) をクリックすると、インポート可能なキーバインド設定の一覧が表示されているサイトが立ち上がります。追加したいキーバインド設定のImportをクリックして、インポートが完了すると、Karabiner-Elementsの画面に適用可能なキーバインドの一覧が表示され、Enableをクリックすると適用されます。Rulesに追加され、Enableになっているキーバインドの設定が表示されます。
@@ -20,7 +20,7 @@ JSONとはJavaScript Object Notationの略で、テキストベースのデー�
   "key3":[true, 123, "value3"]
 }
 //}
-まず、全体を｛｝で囲む必要があります。キーと値を：で区切って並べて書きます。複数にわたる場合は, で区切って並べます。値は、文字列は""で囲み、数値とbool値はそのまま、配列は[]で囲み要素を, で区切ります。見やすいように改行することが多いですが、すべてを1行で書いてもいいです。
+まず、全体を｛｝で囲む必要があります。キーと値を：で区切って並べて書きます。複数にわたる場合は「,」で区切って並べます。値は、文字列は""で囲み、数値とbool値はそのまま、配列は[]で囲み要素を「,」で区切ります。見やすいように改行することが多いですが、すべてを1行で書いてもいいです。
 ===
 
 それでは、jsonファイルの中身を見ていきましょう。
@@ -60,7 +60,9 @@ rulesは配列になっているので、１つのrulesの中に複数のdescrip
 //}
 
 実際にキーバインド設定の記述に入ります。基本としては、fromで設定したキー入力を受け付けたら、toで設定したキー入力に変更するというものです。
+
 設定全体の注意点として、fromに設定した入力は、通常の動作をせずここで設定した入力をすることに注意してください。ちなみに、toになにも設定しないと何もしないのでfromに設定したキーを無効化します。また、単純にfrom、toに1つのキーを設定した場合は、キーマップの変更になります。
+
 typeには、基本的には"basic"を指定します。マウスの動きをスクロールに変換したい場合のみ"mouse_motion_to_scroll"を指定します。この機能を使う場合は、Karabiner-ElementsのDevicesで、自分が使っているマウスにチェックを入れておく必要があります。
 //emlist[マウススクロール]{
 {
@@ -80,9 +82,10 @@ typeには、基本的には"basic"を指定します。マウスの動きをス
   ]
 }
 //}
-Controlキーを押しながらマウスを動かすと、動かした方向にスクロールするようになります。
-ここからの説明では、"title"/"rules"/"description"/"manipulators"/"type"の部分、直接関係ない部分は省略してサンプルを載せていきます。ここからの設定は、全てtypeは"basic"です。
-//emlist[十字キー]{
+この設定では、Controlキーを押しながらマウスを動かすと、動かした方向にスクロールするようになります。
+
+ここからの説明では、"title"/"rules"/"description"/"manipulators"/"type"の直接関係ない部分は省略してサンプルを載せていきます。ここからの設定は、全てtypeは"basic"です。
+//emlist[カーソルキー]{
 "type":"basic"
 "from":{
   "key_code":"j"
@@ -93,9 +96,12 @@ Controlキーを押しながらマウスを動かすと、動かした方向に�
   {"key_code":"left_arrow"}
  ]
 //}
+
 上記のコードは、control-jの組み合わせを指定しています。例の"controll"部分にanyを指定すると、全てのキー入力を指定します。キー入力ではなく、マウスのボタンを指定する時はkey_codeではなく、"pointing_button":"button3"のように指定してください。modifiersはキーの組み合わせを指定します。ここでは、mandatoryとoptionalがあります。
 
-mandatoryはキーの組み合わせを指定します。この組み合わせが入力されたときに"to"の処理を行います。mandatoryには、修飾キーのcommand, control, shift, option, fn, caps_lock, anyのどれかを設定することをお勧めします。これら以外だと、mandatoryに指定したキーを押しながらkey_codeに指定したキーを押した場合のみ動作するので、mandatoryに指定したキーの入力が少なくとも1回入ってしまいます。"pointing_button"の注意点として、button1は左クリックですので、ここに割り当てると左クリックとして使えなくなります。modifiersを使って同時押しに使いましょう。
+mandatoryはキーの組み合わせを指定します。この組み合わせが入力されたときに"to"の処理を行います。mandatoryには、修飾キーのcommand, control, shift, option, fn, caps_lock, anyのどれかを設定することをお勧めします。これら以外だと、mandatoryに指定したキーを押しながらkey_codeに指定したキーを押した場合のみ動作するので、mandatoryに指定したキーの入力が少なくとも1回入ってしまいます。
+
+"pointing_button"を用いる際の注意点があります。button1は左クリックで、button1のみに処理を割り当てると左クリックとして使えなくなります。modifiersを用いて同時押しの一部にに使いましょう。
 
 "optional"は、"from"の時に受け付けたキーを、"to"の時にも引き継ぐキーを指定します。"any"だと、全てのキー入力を引き継ぎます。ちなみに、Shift、controlなど左右に存在しているキーは、left_controlのようにすると左右区別できます。left、rightを書いていない場合は、どちらでも受け付けます。
 
