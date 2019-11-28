@@ -77,8 +77,9 @@ ChangeKeyは、常駐せずにキー割り当てを変更できるフリーソ�
 
 さて、変換キーがうまく動作しなかった場合、AutoHotKeyが認識できるキーに変更すればいいと考えられます。普段使わず、操作が邪魔にならず認識できるキーにしたいですね。そんなキーがキーボードに存在しています。それは、ScrollLock、Pause/Breakです。今回は、ScrollLockを使用します。 他の方法としては、キーボードには存在しないがPCには設定されている仮想キーコードとしてF13～F24キーが存在しています。これを用いる方法もあります。仮想キーコード、スキャンコードは前節での内容を参考に調べてください。ChangeKeyの変更後のキーを選択する画面で、Scan codeをクリックして調べたスキャンコードを設定します。
 
-//blankline
-//blankline
+//embed[latex]{
+\clearpage
+//}
 
 ===[column] ScrollLock、Pause/Break
 ScrollLock、Pause/Breakの機能を知っていますか？Excelなどの表計算ソフトでカーソルキーを押すと選択セルが動きますが、ScrollLockをONにすると選択セル位置は固定のままスクロールバーが動きます。Excelの動きがおかしくなった、というの原因のひとつにこれがあります。Pause/Breakキーは、処理を途中で止めるものです。コマンドプロンプトで処理停止に使えます（Ctrl+cと同じ処理）。使う場面はほとんどないキーですが、キーボードに残っています。
@@ -171,7 +172,9 @@ ScrollLock & x:: MouseMove, 0,400,5,R
 
 単語移動を設定できます。
 
-//blankline
+//embed[latex]{
+\clearpage
+//}
 
 //emlist[単語移動]{
 ScrollLock & o::Send, {Blind}^{right}
@@ -198,13 +201,7 @@ Return
 //}
 A_PriorHotKeyは一回前に押したキー、A_ThisHotKeyは今押したキーが記録されます。よって、この2つが同じキーだと連打しているとわかります。TimeSincePriorHotkeyはこの2つのキーが押下された時間の差です。連打が200ミリ秒以下だったら、入力された「、」を消すためBackSpaceを一回押して「。」を入力し、そうでなければそのまま「、」を入力するというものです。連打を感知する間隔は変更できます。この設定だと、連打でなく長押しにも反応します。もう一つの例は次です。
 
-//blankline
-//blankline
-//blankline
-//blankline
-//blankline
-//blankline
-//blankline
+//pagebreak
 
 //emlist[2連打設定（待ちが発生する）]{
 sc033::
