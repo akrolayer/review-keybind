@@ -8,4 +8,5 @@ CHAPS:
 APPENDIX:
 
 POSTDEF:
+  - postscript.re
   - contributors.re
