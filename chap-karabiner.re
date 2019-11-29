@@ -5,13 +5,22 @@ Karabiner-Elementsとは、Sierra以降のmacOSのキーボードをカスタマ
 既存で用意されている設定をインポートすることができ、その中に主要エディタのショートカットキー（Vim, Emacs, Visual Studio Code）がありとても簡単に設定できます。キーの組み合わせで他のキー入力や、マウス操作、キーバインド設定が独自で定義できます。設定のインポート方法、独自設定の設定方法を紹介します。
 
 == 実際にキーバインド設定してみよう
-まず、公式サイト（https://pqrs.org/osx/karabiner/）からインストールします。設定は変更せずインストール完了まで進めてください。Karabiner-Elementsの設定は~/.config/karabiner/karabiner.jsonに保存されます。Karabiner-Elementsを起動すると、このような画面が出ます。（画像入れる）
+まず、公式サイト（https://pqrs.org/osx/karabiner/）からインストールします。設定は変更せずインストール完了まで進めてください。Karabiner-Elementsの設定は~/.config/karabiner/karabiner.jsonに保存されます。Karabiner-Elementsを起動すると、このような画面が出ます。
+
+//image[first][起動画面][scale=0.8]
+
 Simple Modificationsでは、From keyの入力をTo keyの入力に変換できます。Add itemをクリックして、新たなルールを設定してください。消したい場合は、右側のRemoveをクリックしてください。
 
 === 既存設定のインポート
 Complex Modificationsでは、主要エディタのショートカットキー設定（Vim, Emacs, Visual Studio Codeなど）といった既存の設定がインポートするだけで使うことができます。独自設定も追加でき、追加する場合は複数キーの組み合わせを扱え、押しっぱなしといった複雑なルールも扱うことができます。
 
+//image[complex][Complex Modifications][scale=0.8]
+
 Add ruleをクリックして、Import more rules from the internet(open a web browser) をクリックすると、インポート可能なキーバインド設定の一覧が表示されているサイトが立ち上がります。追加したいキーバインド設定のImportをクリックして、インポートが完了すると、Karabiner-Elementsの画面に適用可能なキーバインドの一覧が表示され、Enableをクリックすると適用されます。Rulesには追加されて、Enableになっているキーバインドの設定が表示されます。
+
+//image[complexrule][rule追加画面][scale=0.8]
+
+//image[import][complex_modifications rules]][scale=0.8]
 
 === 独自設定
 キーバインド設定をするなら、自分に合った独自のキーバインド設定をしたいですよね。Karabiner-Elementsでも独自キーバインド設定ができます。キーバインド設定は、~/.config/karabiner/assets/complex_modificationsに保存されます。（インポートした設定は数列.jsonというファイル名で保存されています。）
@@ -42,7 +51,9 @@ JSONとはJavaScript Object Notationの略で、テキストベースのデー�
   ]
 }
 //}
-Karabiner-ElementsのRule追加画面に表示される部分です。titleに設定した文字列が表示され、その中にdescriptionが各項目の設定として表示されています。（画像入れる）
+Karabiner-ElementsのRule追加画面に表示される部分です。titleに設定した文字列が表示され、その中にdescriptionが各項目の設定として表示されています。
+
+//image[title][rules追加画面][scale=0.8]
 
 設定ファイルを編集後、変更を反映させるには「Complex Modifications」で対象のルールをEnableして、Add rulesで再度ルールを適用してください。
 
@@ -116,14 +127,14 @@ mandatoryはキーの組み合わせを指定します。この組み合わせ�
 
 //list[any][any]{
 "from":{
-  "key_code":"j"
   "modifiers":{
-    "mandatory":["control"]
+    "mandatory":["control"],
     "optional":["any"]
   }
+},
 "to":[
-  {"key_code":"command"}
- ]
+    {"key_code":"command"}
+]
 //}
 @<list>{any}は、controlと何かのキー入力を受け付けると、commandと押したキーを送信するといったものです。この例では、commandの同時押しはcommandをcontrolに置き換えて送信されるという設定です。デフォルトキーバインドはcommandに割り当てられていますが、controlでもできるようになると便利ですよね。
 
@@ -401,7 +412,9 @@ command-qは楽ですが、押し続けると閉じる必要のないアプリ�
 英数入力になっているときは、英数キーでかな入力に変更するという設定にすれば、英数キーでIMEをトグル設定にできます。@<list>{ime2}の設定はとても便利です。
 
 ==== タッチパッドの利用
-キーボードに含めていいのかは意見が分かれるでしょうが、タッチパッドに何本触れているかという情報を取得できます。全体だけでなく、左右半分、上下半分を分けて取得できます。キーを押さずにタッチパッドに触れるだけで良いので、押しながらの処理がもっと簡単な操作でできるようになります。この機能を使う際は、まずKarabiner-Elementsの設定画面の「Misc」から「Open Karabiner-MultitouchExtension app」を起動しておく必要があります。（（画像入れる））
+キーボードに含めていいのかは意見が分かれるでしょうが、タッチパッドに何本触れているかという情報を取得できます。全体だけでなく、左右半分、上下半分を分けて取得できます。キーを押さずにタッチパッドに触れるだけで良いので、押しながらの処理がもっと簡単な操作でできるようになります。この機能を使う際は、まずKarabiner-Elementsの設定画面の「Misc」から「Open Karabiner-MultitouchExtension app」を起動しておく必要があります。
+
+//image[multi]][設定画面]][scale=0.8]
 
 このアプリが起動していると、以下の変数が格納されます。
 
