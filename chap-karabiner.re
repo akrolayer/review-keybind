@@ -1,6 +1,8 @@
 = Karabiner-Elements
 == Karabiner-Elementsとは
-Karabiner-Elementsとは、Sierra以降のmacOSのキーボードをカスタマイズするためのツールです。Sierraからキーボードドライバの構成が変更されたため、Karabiner-Elementsが開発されました。それより前はKarabinerが開発されていました。既存で用意されている設定に、主要エディタのショートカットキーがあり（Vim, Emacs, Visual Studio Code）、とても簡単に設定できます。キーの組み合わせで他のキー入力や、マウス操作、キーバインド設定が独自で定義できます。この本では、Karabiner-Elementsを扱います。設定のインポート方法、独自設定の設定方法を紹介します。
+Karabiner-Elementsとは、Sierra以降のmacOSのキーボードをカスタマイズするためのツールです。Sierraからキーボードドライバの構成が変更されたため、Karabiner-Elementsが開発されました（それより前はKarabinerが開発されていました）。この本では、Karabiner-Elementsを扱います。
+
+既存で用意されている設定をインポートすることができ、その中に主要エディタのショートカットキー（Vim, Emacs, Visual Studio Code）がありとても簡単に設定できます。キーの組み合わせで他のキー入力や、マウス操作、キーバインド設定が独自で定義できます。設定のインポート方法、独自設定の設定方法を紹介します。
 
 == 実際にキーバインド設定してみよう
 まず、公式サイト（https://pqrs.org/osx/karabiner/）からインストールします。設定は変更せずインストール完了まで進めてください。Karabiner-Elementsの設定は~/.config/karabiner/karabiner.jsonに保存されます。Karabiner-Elementsを起動すると、このような画面が出ます。（画像入れる）
@@ -12,9 +14,11 @@ Complex Modificationsでは、主要エディタのショートカットキー�
 Add ruleをクリックして、Import more rules from the internet(open a web browser) をクリックすると、インポート可能なキーバインド設定の一覧が表示されているサイトが立ち上がります。追加したいキーバインド設定のImportをクリックして、インポートが完了すると、Karabiner-Elementsの画面に適用可能なキーバインドの一覧が表示され、Enableをクリックすると適用されます。Rulesには追加されて、Enableになっているキーバインドの設定が表示されます。
 
 === 独自設定
-キーバインド設定をするなら、自分に合った独自のキーバインド設定をしたいですよね。Karabiner-Elementsでも独自キーバインド設定ができます。キーバインド設定は、~/.config/karabiner/assets/complex_modificationsに保存されます。（インポートした設定は数列.jsonというファイル名で保存されています。）このディレクトリのjsonファイルを読み込んでいるため、自分でjsonファイルを作成すると読み込まれます。設定ファイル名は英数字内で自由なのですが、ごくたまに読み込まれないことがあります。その際はファイル名を数列.jsonとしてください。また、jsonファイル内容の形式が正しくなかった場合も読み込まれません。jsonファイルが分からなくても、真似すれば問題ないです。
+キーバインド設定をするなら、自分に合った独自のキーバインド設定をしたいですよね。Karabiner-Elementsでも独自キーバインド設定ができます。キーバインド設定は、~/.config/karabiner/assets/complex_modificationsに保存されます。（インポートした設定は数列.jsonというファイル名で保存されています。）
 
-==== [column]jsonファイルとは
+Karabiner-Elementsはこのディレクトリのjsonファイルを読み込んでいるため、自分でjsonファイルを作成すると読み込まれます。設定ファイル名は英数字内で自由なのですが、ごくたまに読み込まれないことがあります。その際はファイル名を数列.jsonとしてください。また、jsonファイル内容の形式が正しくなかった場合も読み込まれません。
+
+===[column] JSONファイルとは
 JSONとはJavaScript Object Notationの略で、テキストベースのデータフォーマットです。主要なプログラミング言語にはjsonの生成や読み込みを行うライブラリが存在しているため、データ交換のためのデータフォーマットとして利用されます。
 //emlist[jsonファイルの書式例]{
 {
@@ -26,8 +30,8 @@ JSONとはJavaScript Object Notationの略で、テキストベースのデー�
 まず、全体を{ }で囲む必要があります。キーと値を：で区切って並べて書きます。キーと値の組み合わせが複数にわたる場合は「,」で区切って並べます。値は、文字列は""で囲み、数値とbool値はそのまま、配列は要素を「,」で区切り、[ ]で囲みます。{ }でも[ ]でも、最後の要素に「,」は要らないです。閉じ括弧の前には「,」はいらないということです。
 
 
-見やすいように改行することが多いですが、すべてを1行で書いてもいいです。括弧の数を間違えがちなので、改行してインデントし見やすくすることが多いです。
-==== [/column]
+見やすいように改行することが多いですが、すべてを1行で書いてもいいです。括弧の数を間違えがち（開いた括弧を閉じていない）なので、改行して括弧の中身を一段階インデントし、見やすくすることが多いです。
+===[/column]
 
 それでは、jsonファイルの中身を見ていきましょう。
 //emlist[rule]{
@@ -40,7 +44,7 @@ JSONとはJavaScript Object Notationの略で、テキストベースのデー�
   ]
 }
 //}
-まず、Karabiner-ElementsのRule追加画面に表示させる設定です。titleに設定した文字列が表示され、その中にdescriptionが各項目の設定として表示されています。（画像入れる）
+まず、Karabiner-ElementsのRule追加画面に表示される部分です。titleに設定した文字列が表示され、その中にdescriptionが各項目の設定として表示されています。（画像入れる）
 
 設定ファイルを編集後、変更を反映させるには「Complex Modifications」で対象のルールをEnableして、Add rulesで再度ルールを適用してください。
 
@@ -107,9 +111,9 @@ typeには、基本的には"basic"を指定します。マウスの動きをス
 
 mandatoryはキーの組み合わせを指定します。この組み合わせが入力されたときに"to"の処理を行います。mandatoryには、修飾キーのcommand, control, shift, option, fn, caps_lock, anyのどれかを設定することをお勧めします。これら以外だと、mandatoryに指定したキーを押しながらkey_codeに指定したキーを押した場合のみ動作するので、mandatoryに指定したキーの入力が少なくとも1回入ってしまいます。
 
-"pointing_button"を用いる際の注意点があります。button1は左クリックで、button1のみに処理を割り当てると左クリックとして使えなくなります。modifiersを用いて同時押しの一部にに使いましょう。
+"pointing_button"はbutton1が左クリック、button2が右クリック、button3がホイールクリックです。注意点として、これらのボタンの単体押しをfromの処理に割り当てると、そのクリックは元々のクリックとして使えなくなります。modifiersを用いて同時押しの一部に使いましょう。（例：from{"pointing_button":"button1"}とすると、左クリックは左クリックを検知するとtoの処理をするボタンになる。元々の左クリックの機能はなくなる）
 
-"optional"は、"from"の時に受け付けたキーを、"to"の時にも引き継ぐキーを指定します。"any"だと、全てのキー入力を引き継ぎます。ちなみに、Shift、controlなど左右に存在しているキーは、left_controlのようにすると左右区別できます。left、rightを書いていない場合は、どちらでも受け付けます。
+"optional"に指定したキーは、"to"の時にも引き継がれます。"any"だと、全てのキー入力を引き継ぎます。ちなみに、Shift、controlなど左右に存在しているキーは、left_controlのようにすると左右区別できます。left、rightを書いていない場合は、どちらでも受け付けます。
 
 //emlist[any]{
 "from":{
@@ -122,7 +126,11 @@ mandatoryはキーの組み合わせを指定します。この組み合わせ�
   {"key_code":"command"}
  ]
 //}
-control-Aのキー入力を受け付けると、command-Aにするといったものです。"caps_lock"を指定すると、CapsLockがON状態でも変換を実行するようになります。Karabiner-Elementsは、CapsLockがONだと、CapsLockが押されていると判断しています。注意点として、"mandatory"と"optional"に同じキーを指定すると引き継ぎできなくなります。
+controlと何かのキー入力を受け付けると、commandと押したキーを送信するといったものです。この例では、commandの同時押しはcommandをcontrolに置き換えて送信されるという設定です。デフォルトキーバインドはcommandに割り当てられていますが、controlでもできるようになると便利ですよね。
+
+"caps_lock"を指定すると、CapsLockがON状態でも変換を実行するようになります。Karabiner-Elementsは、CapsLockがONの時CapsLockが押されていると判断しています。
+
+注意点として、"mandatory"と"optional"に同じキーを指定すると引き継ぎできなくなります。
 
 "simultaneous"は、複数キーの同時押しに何らかの処理を割り当てたいときに使います。同時押しの許容時間は、Complex Modifications→Parameters→simultaneous_threshold_millisecondsで設定できます。デフォルトでは、50ミリ秒になっています。
 //emlist[同時押し]{
@@ -147,20 +155,18 @@ control-Aのキー入力を受け付けると、command-Aにするといった�
 
 jklの同時押しでテキストエディタを起動します。simultaneousの下のfrom内に、オプションを書けます。
 //emlist[simultaneousのオプション]{
-"simultaneous_options":{
-  "detect_key_down_uninterruptedly",
-  "key_down_order",
-  "key_up_order",
-  "key_up_when",
-  "to_after_key_up"
-}
+"detect_key_down_uninterruptedly",
+"key_down_order",
+"key_up_order",
+"key_up_when",
+"to_after_key_up"
 //}
 この５つがあります。
 
  * "detect_key_down_uninterruptedly"
  ** trueかfalseで指定します。trueだと、同時押しの途中に違うキーを押しても、同時押しに設定された操作の変換を行った後、違うキーを押します。falseだと、変換処理に入りません。上の例だと、jkslと押した場合、jklを押した動作をした後、sが入力されます。省略した場合はfalseです。
  * "key_down_order"
- ** "strict","strict_inverse","insensitive"のどれかで指定します。発火するキーを押す順番を明確に決める設定です。"strict"が記述した順番、"strict_inverse"が記述と反対の順番です。"insensitive"は、順番を問わなくなります。省略した場合は"insensitive"です。
+ ** "strict","strict_inverse","insensitive"のどれかで指定します。キーが押される順番を明確に決めて発火させる設定です。"strict"が記述した順番、"strict_inverse"が記述と反対の順番です。"insensitive"は、順番を問わなくなります。省略した場合は"insensitive"です。
  * "key_up_order"
  ** "strict","strict_inverse","insensitive"のどれかで指定します。key_up_orderを指定すると、指定キーを押した時点では変換されず、いずれかのキーを一つ離した時点で発火します。"strict"だと"simultaneous"で最初に記述したキー、"strict_inverse"だと最後に記述したキー、"insensitive"だと記述したどのキーを離しても発火します。省略した場合は"insensitive"です。
  * "key_up_when"
@@ -180,7 +186,7 @@ jklの同時押しでテキストエディタを起動します。simultaneous�
 "set_variable"で代入ができます。このようにすれば、押したときに"value"を1、離したときに0にできます。
 
 === to
-"to"についてですが、キーの指定方法に関しては"from"と同様です。配列なので、複数の処理を設定できます。
+キーの指定方法に関しては"from"と同様です。配列なので、複数の処理を設定できます。
 //emlist[toの例]{
 "to":[
   {"key_code":"a"}
@@ -196,7 +202,7 @@ jklの同時押しでテキストエディタを起動します。simultaneous�
 ]
 //}
 button1は左クリックなので、キー操作にダブルクリックを割り当てることができます。
-//emlist[シェルコマンド1]{
+//emlist[シェルコマンド]{
 "to": [
   { "shell_command": "open -a TextEdit" }
 ]
@@ -204,7 +210,7 @@ button1は左クリックなので、キー操作にダブルクリックを割�
 
 キーの組み合わせにシェルコマンドを割り当てることができます。打ち込むコマンドにエスケープシーケンスが含まれる場合は「\」でエスケープ処理をする必要があります。
 
-"modifiers"は、"from"の場合とは異なり、"mandatory"、"optional"の設定は不要です。
+"modifiers"は、"from"の場合とは異なり"mandatory"、"optional"の設定は不要です。
 //emlist[toの場合の同時押し]{
 "to": [
   {
@@ -218,19 +224,26 @@ button1は左クリックなので、キー操作にダブルクリックを割�
 
 "select_input_source"の"input_source_id"に特定の値を指定することでIMEの状態を指定することができます。IMEは特殊キーなので、値を確認します。Karabiner-ElementsのEventViewer→variablesでキーを押したときの値を見ることができます。
 
-アップル日本語入力や、Google日本語入力など入力方式で値が変わります。input_source_identifiersの項目で"input_source_id"の値を確認してください。"language"が"ja"の時がIMEオンです。
+アップル日本語入力や、Google日本語入力など入力方式で値が変わります。input_source_identifiersの項目で"input_source_id"の値を確認してください。この例ではアップル日本語入力です。
+
+この方法では、アップル日本語入力やGoogle日本語入力といった入力方式まで扱いますが、英数入力とかな入力を切り替えるだけであればもっと簡単にできます。（後述する特定IMEを参照。）
 //emlist[IME変更]{
-//標準IMEでオンにする
 "to": [
   {
     "select_input_source": {
       "input_source_id": "^com\\.apple\\.inputmethod\\.Kotoeri\\.Japanese$"
     }
   }
+"to": [
+  {
+    "select_input_source": {
+      "input_source_id": "^com\\.apple\\.inputmethod\\.Kotoeri\\.Roman$"
+    }
+  }
 ]
 //}
 
-"mouse_key"を使うと、マウス移動、ホイールスクロールを割り当てられます。クリックは前述の"pointing_button"で割り当てます。
+"mouse_key"を使うと、マウス移動、ホイールスクロールを割り当てられます。クリックは"from"の時と同様に"pointing_button"で割り当てます。
 //emlist[マウス移動]{
 "to": [ { "mouse_key": { "x": -10 }} ,
         { "mouse_key": { "y": -10 }}
@@ -261,7 +274,7 @@ x,yは座標のことなので、xが横方向（正で右、負で左）、yが
   {"key_code": "japanese_eisuu"}
 ]
 //}
-左Commandキーを単独で押した場合は英数キーとして認識し、他のキーと組み合わせて押すと左Command＋押したキーとして認識する設定です。この例では、2000ミリ秒押し続けると、英数への変換はキャンセルされます。
+左Commandキーを単独で押した場合は英数キーとして認識し、他のキーと組み合わせて押すと左Command-押したキーとして認識する設定です。この例では、2000ミリ秒押し続けると、英数への変換はキャンセルされます。
 
 "to_delayed_action"は、一定時間待った後の処理や、コマンドがキャンセルされた時の処理を設定できます。
 //emlist[to_delayed_action]{
@@ -279,7 +292,7 @@ x,yは座標のことなので、xが横方向（正で右、負で左）、yが
    ]
 }
 //}
-ctrl-xを押すと"ctrl-x"に1を代入します。そのまま何も押さないと2を代入します。ctrl-xに続けて何か別のキーを押すと0が代入されます。"to_if_invoked"が実行されるまでの時間はComplex Modifications→Parametersで指定できます。これをどのように使うかというと、emacsなどにある"ctrl-x ctrl-s"のキーバインド設定をするために使います。後述する"condition"を使って実装します。
+ctrl-xを押すと"ctrl-x"に1を代入します。そのまま何も押さないと2を代入します。ctrl-xに続けて何か別のキーを押すと0が代入されます。"to_if_invoked"が実行されるまでの時間はComplex Modifications→Parametersで指定できます。これをどのように使うかというと、Emacsなどにある"ctrl-x ctrl-s"のキーバインド設定をするために使います。後述する"condition"を使って実装します。
 
 "to_after_key_up"は、"from"で設定したキーから手を離したときに実行する処理を書きます。設定した変数の値を初期化するのによく使います。
 //emlist[to_after_key_up]{
@@ -512,23 +525,24 @@ IMEが指定した状態の時、指定した状態でないときを条件に�
 == JISキーボードを使っていて、記号の割り当てがおかしいとき
 Karabiner-Elementsが、JISキーボードをUSキーボードと認識することがあります。そのため、JISキーボードに見えている記号を入力してもKarabiner-ElementsはUSキーボードのその位置の記号だと認識することがあります。この時、キーボードの認識を合わせるよう頑張るか、Karabiner-Elementsの認識に合わせて設定をすることになります。JISキーボードとUSキーボードの記号の対応表を掲載しておくので、参考にしてください。
 
-//emlist[対応表]{
-JISキーボード USキーボード  指定すべきキーコード
-^            =            equal_sign  
-¥            .            international3  
-@            [            open_bracket
-[            ]            close_bracket
-:            '            quote
-]            \            backslash
-\            .            international1
-;            ;            semicolon
--            -            hyphen
-,            ,            comma
-.            .            period
-/            /            slash
+//table[table1][対応表]{
+JISキーボード	USキーボード	指定すべきキーコード
+--------------------------------------------------
+^	=	equal_sign  
+¥	なし	international3  
+@	[	open_bracket
+[	]	close_bracket
+:	'	quote
+]	\	backslash
+\	..	international1
+;	;	semicolon
+-	-	hyphen
+,	,	comma
+..	なし	period
+/	/	slash
 //}
 
-JISキーボードの見た目のキーを打つ設定をするときに、指定すべきキーコードで指定してください。たとえば、「:」で何か処理をするときは、{key_code:quote}にするということです。
+JISキーボードの見た目のキーを打つ設定をするときに、指定すべきキーコードで指定してください。たとえば、「:」キーで何か処理をするときは、{key_code:quote}にするということです。
 
 == 終わりに
-この章を読むことによって、Karabiner-Elementsによるキー割り当て変更、キーバインド設定、マウス操作が可能になりました使っているキーボードだけでなく使用者の好み・タイピング方法によって使いやすい設定は異なるので、ぜひ自分にあった設定を見つけてください。
+この章を読むことによって、Karabiner-Elementsによるキー割り当て変更、キーバインド設定、マウス操作がいろいろな条件の時に設定可能になりました。使っているキーボードだけでなく使用者の好み・タイピング方法によって使いやすい設定は異なるので、ぜひ自分にあった設定を見つけてください。
