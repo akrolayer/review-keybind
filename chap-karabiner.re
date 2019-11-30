@@ -31,11 +31,13 @@ Complex Modificationsでは、主要エディタのショートカットキー�
 
 //image[complex][Complex Modifications][scale=0.8]
 
-Add ruleをクリックして、Import more rules from the internet(open a web browser) をクリックすると、インポート可能なキーバインド設定の一覧が表示されているサイトが立ち上がります。追加したいキーバインド設定のImportをクリックして、インポートが完了すると、Karabiner-Elementsの画面に適用可能なキーバインドの一覧が表示され、Enableをクリックすると適用されます。Rulesには追加されて、Enableになっているキーバインドの設定が表示されます。
+Add ruleをクリックして、Import more rules from the internet(open a web browser) をクリックすると、インポート可能なキーバインド設定の一覧が表示されているサイトが立ち上がります。
 
 //image[complexrule][rule追加画面][scale=0.8]
 
-//image[import][complex_modifications rules]][scale=0.8]
+追加したいキーバインド設定のImportをクリックして、インポートが完了すると、Karabiner-Elementsの画面に適用可能なキーバインドの一覧が表示され、Enableをクリックすると適用されます。Rulesには追加されて、Enableになっているキーバインドの設定が表示されます。
+
+//image[import][サイト][scale=0.8]
 
 === 独自設定
 キーバインド設定をするなら、自分に合った独自のキーバインド設定をしたいですよね。Karabiner-Elementsでも独自キーバインド設定ができます。キーバインド設定は、~/.config/karabiner/assets/complex_modificationsに保存されます。（インポートした設定は数列.jsonというファイル名で保存されています。例：1566313435.json）
@@ -430,7 +432,7 @@ command-qは楽ですが、押し続けると閉じる必要のないアプリ�
 ==== タッチパッドの利用
 キーボードに含めていいのかは意見が分かれるでしょうが、タッチパッドに何本触れているかという情報を取得できます。全体だけでなく、左右半分、上下半分を分けて取得できます。キーを押さずにタッチパッドに触れるだけで良いので、押しながらの処理がもっと簡単な操作でできるようになります。この機能を使う際は、まずKarabiner-Elementsの設定画面の「Misc」から「Open Karabiner-MultitouchExtension app」を起動しておく必要があります。
 
-//image[multi]][設定画面]][scale=0.8]
+//image[multi][設定画面][scale=0.8]
 
 このアプリが起動していると、以下の変数が格納されます。
 
