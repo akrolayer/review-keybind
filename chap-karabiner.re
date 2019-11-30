@@ -4,6 +4,21 @@ Karabiner-Elementsとは、Sierra以降のmacOSのキーボードをカスタマ
 
 既存で用意されている設定をインポートすることができ、その中に主要エディタのショートカットキー（Vim, Emacs, Visual Studio Code）がありとても簡単に設定できます。キーの組み合わせで他のキー入力や、マウス操作、キーバインド設定が独自で定義できます。設定のインポート方法、独自設定の設定方法を紹介します。
 
+== MacOS Catalinaの場合
+MacOSをCatalinaにバージョンアップしていると、標準ではKarabiner-Elements が使えません。使えるようにする方法を紹介します。
+
+Macの設定を開き、Security & Privacy→Input Monitoringを選択します。Terminal を開いて Karabiner Elements の bin ファイルがある場所を開きます（ターミナルで（open /Library/Application\ Support/org.pqrs/Karabiner-Elements/bin/）を入力したほうが早いかも）。
+
+開いたフォルダから、karabiner_grabberとkarabiner_observerをInput Monitoring にドラッグ＆ドロップします。もし、Input Monitoring の中に何のファイルも入っておらず、ファイルの追加ができない場合は Karabiner-EventViewer を起動するとそれが Input Monitoring に追加されるので、他のファイルも入れられるようになります。
+
+最後に、Terminal で以下のコマンドを実行し、追加された２ファイルを一旦終了させます。
+//emlist[2ファイル終了コマンド]{
+sudo killall karabiner_grabber
+sudo killall karabiner_observer
+//}
+
+これで、Karabiner-ElementsがCatalinaで正常に動くようになります。
+
 == 実際にキーバインド設定してみよう
 まず、公式サイト（https://pqrs.org/osx/karabiner/）からインストールします。設定は変更せずインストール完了まで進めてください。Karabiner-Elementsの設定は~/.config/karabiner/karabiner.jsonに保存されます。Karabiner-Elementsを起動すると、このような画面が出ます。
 
@@ -23,7 +38,7 @@ Add ruleをクリックして、Import more rules from the internet(open a web b
 //image[import][complex_modifications rules]][scale=0.8]
 
 === 独自設定
-キーバインド設定をするなら、自分に合った独自のキーバインド設定をしたいですよね。Karabiner-Elementsでも独自キーバインド設定ができます。キーバインド設定は、~/.config/karabiner/assets/complex_modificationsに保存されます。（インポートした設定は数列.jsonというファイル名で保存されています。）
+キーバインド設定をするなら、自分に合った独自のキーバインド設定をしたいですよね。Karabiner-Elementsでも独自キーバインド設定ができます。キーバインド設定は、~/.config/karabiner/assets/complex_modificationsに保存されます。（インポートした設定は数列.jsonというファイル名で保存されています。例：1566313435.json）
 
 Karabiner-Elementsはこのディレクトリのjsonファイルを読み込んでいるため、自分でjsonファイルを作成すると読み込まれます。設定ファイル名は英数字内で自由なのですが、ごくたまに読み込まれないことがあります。その際はファイル名を数列.jsonとしてください。また、jsonファイル内容の形式が正しくなかった場合も読み込まれません。
 
@@ -172,7 +187,7 @@ mandatoryはキーの組み合わせを指定します。この組み合わせ�
 "key_up_when",
 "to_after_key_up"
 //}
-この５つがあります。
+simultaneousのオプションには、この5つがあります。
 
  * "detect_key_down_uninterruptedly"
  ** trueかfalseで指定します。trueだと、同時押しの途中に違うキーを押しても、同時押しに設定された操作の変換を行った後、違うキーを押します。falseだと、変換処理に入りません。上の例だと、jkslと押した場合、jklを押した動作をした後、sが入力されます。省略した場合はfalseです。
@@ -247,7 +262,7 @@ mandatoryはキーの組み合わせを指定します。この組み合わせ�
   }
 ]
 //}
-@<list>{ime}はime操作です。"select_input_source"の"input_source_id"に特定の値を指定することでIMEの状態を指定することができます。IMEは特殊キーなので、値を確認します。Karabiner-ElementsのEventViewer→variablesでキーを押したときの値を見ることができます。
+@<list>{ime}はIME操作です。"select_input_source"の"input_source_id"に特定の値を指定することでIMEの状態を指定することができます。IMEは特殊キーなので、値を確認します。Karabiner-ElementsのEventViewer→variablesでキーを押したときの値を見ることができます。
 
 アップル日本語入力や、Google日本語入力など入力方式で値が変わります。input_source_identifiersの項目で"input_source_id"の値を確認してください。この例ではアップル日本語入力です。
 
@@ -307,8 +322,9 @@ mandatoryはキーの組み合わせを指定します。この組み合わせ�
 "to_after_key_up": [
   {"set_variable": { "name": "enthumble_mode","value": 0 } }
 ]
-"to_after_key_up"は、"from"で設定したキーから手を離したときに実行する処理を書きます。設定した変数の値を変更するのによく使います。@<list>{afterup}でも変数の値を変更していますね。
 //}
+
+"to_after_key_up"は、"from"で設定したキーから手を離したときに実行する処理を書きます。設定した変数の値を変更するのによく使います。@<list>{afterup}でも変数の値を変更していますね。
 
 //list[helddown][to_if_held_down]{
       "from": {
@@ -558,7 +574,7 @@ JISキーボード	USキーボード	指定すべきキーコード
 JISキーボードの見た目のキーを打つ設定をするときに、指定すべきキーコードで指定してください。たとえば、「:」キーで何か処理をするときは、{key_code:quote}にするということです。
 
 ==== 便利なキーバインド設定の例
-筆者が行っている設定方法を紹介します。紹介しているものもあるので、設定方法は割愛させていただきます。変換キーを押しながらikjlで上下左右カーソル、edsfで上下左右マウス移動、wrで左右クリック、SpaceキーでEnterにします。変換キーの単押しはBackSpaceです。英数キーをトグル設定にし、Commandの同時押しはControlに変換しています。「,」の2回押しで「.」を入力しています。筆者はメインがwindowsPCのため、windowsPCでAutoHotkeyによって設定していた設定をそのまま移植しました。
+筆者が行っている設定方法を紹介します。紹介しているものもあるので、設定方法は割愛させていただきます。変換キーを押しながらikjlで上下左右カーソル、edsfで上下左右マウス移動、wrで左右クリック、SpaceキーでEnterにします。変換キーの単押しはBackSpaceです。英数キーをトグル設定にし、Commandの同時押しはControlに変換しています。「,」の2回押しで「.」を入力しています。筆者はメインがWindowsPCのため、WindowsPCでAutoHotkeyによって設定していた設定をそのまま移植しました。
 
 == 終わりに
 この章を読むことによって、Karabiner-Elementsによるキー割り当て変更、キーバインド設定、マウス操作がいろいろな条件の時に設定可能になりました。使っているキーボードだけでなく使用者の好み・タイピング方法によって使いやすい設定は異なるので、ぜひ自分にあった設定を見つけてください。
